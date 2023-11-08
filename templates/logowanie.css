@@ -1,6 +1,6 @@
 /* Stylizacja tła strony */
 body {
-    background-image: url('tło\ strony.jpg'); /* Zastąp 'twoje-zdjecie.jpg' właściwą ścieżką do obrazu */
+    background-image: url('TŁO.jpg'); /* Zastąp 'twoje-zdjecie.jpg' właściwą ścieżką do obrazu */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
