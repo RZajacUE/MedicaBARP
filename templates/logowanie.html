@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="C:\Users\ostro\OneDrive\Pulpit\logowanie.css">
+    <link rel="stylesheet" type="text/css" href="../static/logowanie.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>Formularz logowania i rejestracji wizyty</title>
 </head>
 <body>
     
-<form class="form-login">
-    <div id="panel">
-        <form>
+<div id="panel">
+    <form action="{{url_for("login")}}" method="POST">
         <label for="username">Imię Nazwisko:</label>
         <input type="text" id="username" name="username">
         <label for="password">Hasło:</label>
         <input type="password" id="password" name="password">
         <div id="lower">
-        <input type="checkbox"><label class="check" for="checkbox">Zapamiętaj mnie!</label>
-        <a href="rejestracja_konta.html">Rejestracja</a> 
-        <input type="submit" value="Login">
+            <input type="checkbox" name="check"><label class="check" for="checkbox">Zapamiętaj mnie!</label>
+            <a href="rejestracja_konta.html">Rejestracja</a> 
+            <input type="submit" value="Login">
         </div>
-        </form>
-        </div>
-</form>
+    </form>
+</div>
 </body>
 </html>
