@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Lis 07, 2023 at 08:37 PM
+-- Generation Time: Lis 11, 2023 at 04:16 PM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -24,11 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `karty pacjenta`
+-- Struktura tabeli dla tabeli `karty_pacjentow`
 --
 
-CREATE TABLE `karty pacjenta` (
-  `test` int(11) NOT NULL,
+CREATE TABLE `karty_pacjentow` (
   `IdKarty` int(11) NOT NULL,
   `IdPacjenta` int(11) DEFAULT NULL,
   `HistoriaChorob` text DEFAULT NULL,
@@ -71,30 +70,31 @@ INSERT INTO `lekarze` (`IdLekarza`, `Imie`, `Nazwisko`, `Specjalizacja`, `NrLice
 --
 
 CREATE TABLE `pacjenci` (
+  `IdPacjenta` int(11) NOT NULL,
   `Imie` varchar(255) DEFAULT NULL,
   `Nazwisko` varchar(255) DEFAULT NULL,
   `Pesel` varchar(11) DEFAULT NULL,
   `DataUrodzenia` date DEFAULT NULL,
   `Adres` varchar(255) DEFAULT NULL,
   `NumerTel` varchar(20) DEFAULT NULL,
-  `IdPacjenta` int(11) NOT NULL
+  `Haslo` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
 -- Dumping data for table `pacjenci`
 --
 
-INSERT INTO `pacjenci` (`Imie`, `Nazwisko`, `Pesel`, `DataUrodzenia`, `Adres`, `NumerTel`, `IdPacjenta`) VALUES
-('Jan', 'Kowalski', '12345678901', '1980-05-15', 'ul. Kwiatowa 7', '123-456-789', 1),
-('Anna', 'Nowak', '98765432109', '1995-08-20', 'ul. Słoneczna 14', '987-654-321', 2),
-('Marek', 'Wiśniewski', '56789012345', '1976-12-10', 'ul. Leśna 3', '567-890-123', 3),
-('Ewa', 'Jankowska', '34567890123', '1990-03-25', 'ul. Parkowa 11', '345-678-901', 4),
-('Piotr', 'Kowalczyk', '78901234567', '1985-09-08', 'ul. Polna 9', '789-012-345', 5),
-('Alicja', 'Lis', '45678901234', '2000-07-30', 'ul. Wiosenna 2', '456-789-012', 6),
-('Kamil', 'Kaczor', '23456789012', '1972-01-14', 'ul. Główna 4', '234-567-890', 7),
-('Karolina', 'Wójcik', '65432109876', '1988-11-05', 'ul. Cicha 8', '654-321-098', 8),
-('Wojciech', 'Nowicki', '87654321098', '1993-04-18', 'ul. Zielona 12', '876-543-210', 9),
-('Magdalena', 'Duda', '11223344556', '1974-06-22', 'ul. Różana 6', '112-233-445', 10);
+INSERT INTO `pacjenci` (`IdPacjenta`, `Imie`, `Nazwisko`, `Pesel`, `DataUrodzenia`, `Adres`, `NumerTel`, `Haslo`) VALUES
+(1, 'Jan', 'Kowalski', '12345678901', '1980-05-15', 'ul. Kwiatowa 7', '123-456-789', 'd890efb5'),
+(2, 'Anna', 'Nowak', '98765432109', '1995-08-20', 'ul. Słoneczna 14', '987-654-321', 'cecc82d4'),
+(3, 'Marek', 'Wiśniewski', '56789012345', '1976-12-10', 'ul. Leśna 3', '567-890-123', '5d5205fd'),
+(4, 'Ewa', 'Jankowska', '34567890123', '1990-03-25', 'ul. Parkowa 11', '345-678-901', 'b13cd093'),
+(5, 'Piotr', 'Kowalczyk', '78901234567', '1985-09-08', 'ul. Polna 9', '789-012-345', '185640fa'),
+(6, 'Alicja', 'Lis', '45678901234', '2000-07-30', 'ul. Wiosenna 2', '456-789-012', '41ad33cc'),
+(7, 'Kamil', 'Kaczor', '23456789012', '1972-01-14', 'ul. Główna 4', '234-567-890', 'a268be51'),
+(8, 'Karolina', 'Wójcik', '65432109876', '1988-11-05', 'ul. Cicha 8', '654-321-098', 'fc7a51ed'),
+(9, 'Wojciech', 'Nowicki', '87654321098', '1993-04-18', 'ul. Zielona 12', '876-543-210', 'cf77eed4'),
+(10, 'Magdalena', 'Duda', '11223344556', '1974-06-22', 'ul. Różana 6', '112-233-445', '0df31f03');
 
 -- --------------------------------------------------------
 
@@ -121,14 +121,101 @@ INSERT INTO `pokoje` (`IdPokoju`, `NumerPokoju`, `Status`, `IdPrzychodni`) VALUE
 (5, 301, 'Wolny', 1),
 (6, 302, 'Wolny', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `wizyty`
+--
+
+CREATE TABLE `wizyty` (
+  `IdWizyty` int(11) NOT NULL,
+  `DataWizyty` datetime DEFAULT NULL,
+  `IdPacjenta` int(11) DEFAULT NULL,
+  `IdLekarza` int(11) DEFAULT NULL,
+  `IdKarty` int(11) DEFAULT NULL,
+  `IdPokoju` int(11) DEFAULT NULL,
+  `IdPrzychodni` int(11) DEFAULT NULL,
+  `OpisWizyty` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Dumping data for table `wizyty`
+--
+
+INSERT INTO `wizyty` (`IdWizyty`, `DataWizyty`, `IdPacjenta`, `IdLekarza`, `IdKarty`, `IdPokoju`, `IdPrzychodni`, `OpisWizyty`) VALUES
+(1, '2024-02-12 08:00:00', NULL, 1, NULL, NULL, NULL, NULL),
+(2, '2024-02-12 09:00:00', NULL, 1, NULL, NULL, NULL, NULL),
+(3, '2024-02-12 10:00:00', NULL, 1, NULL, NULL, NULL, NULL),
+(4, '2024-02-12 11:00:00', NULL, 1, NULL, NULL, NULL, NULL),
+(5, '2024-02-12 12:00:00', NULL, 1, NULL, NULL, NULL, NULL),
+(6, '2024-02-12 13:00:00', NULL, 1, NULL, NULL, NULL, NULL),
+(7, '2024-02-12 14:00:00', NULL, 1, NULL, NULL, NULL, NULL),
+(8, '2024-02-12 15:00:00', NULL, 1, NULL, NULL, NULL, NULL),
+(9, '2024-02-12 08:00:00', NULL, 2, NULL, NULL, NULL, NULL),
+(10, '2024-02-12 09:00:00', NULL, 2, NULL, NULL, NULL, NULL),
+(11, '2024-02-12 10:00:00', NULL, 2, NULL, NULL, NULL, NULL),
+(12, '2024-02-12 11:00:00', NULL, 2, NULL, NULL, NULL, NULL),
+(13, '2024-02-12 12:00:00', NULL, 2, NULL, NULL, NULL, NULL),
+(14, '2024-02-12 13:00:00', NULL, 2, NULL, NULL, NULL, NULL),
+(15, '2024-02-12 14:00:00', NULL, 2, NULL, NULL, NULL, NULL),
+(16, '2024-02-12 15:00:00', NULL, 2, NULL, NULL, NULL, NULL),
+(17, '2024-02-12 08:00:00', NULL, 3, NULL, NULL, NULL, NULL),
+(18, '2024-02-12 09:00:00', NULL, 3, NULL, NULL, NULL, NULL),
+(19, '2024-02-12 10:00:00', NULL, 3, NULL, NULL, NULL, NULL),
+(20, '2024-02-12 11:00:00', NULL, 3, NULL, NULL, NULL, NULL),
+(21, '2024-02-12 12:00:00', NULL, 3, NULL, NULL, NULL, NULL),
+(22, '2024-02-12 13:00:00', NULL, 3, NULL, NULL, NULL, NULL),
+(23, '2024-02-12 14:00:00', NULL, 3, NULL, NULL, NULL, NULL),
+(24, '2024-02-12 15:00:00', NULL, 3, NULL, NULL, NULL, NULL),
+(25, '2024-02-12 08:00:00', NULL, 4, NULL, NULL, NULL, NULL),
+(26, '2024-02-12 09:00:00', NULL, 4, NULL, NULL, NULL, NULL),
+(27, '2024-02-12 10:00:00', NULL, 4, NULL, NULL, NULL, NULL),
+(28, '2024-02-12 11:00:00', NULL, 4, NULL, NULL, NULL, NULL),
+(29, '2024-02-12 12:00:00', NULL, 4, NULL, NULL, NULL, NULL),
+(30, '2024-02-12 13:00:00', NULL, 4, NULL, NULL, NULL, NULL),
+(31, '2024-02-12 14:00:00', NULL, 4, NULL, NULL, NULL, NULL),
+(32, '2024-02-12 15:00:00', NULL, 4, NULL, NULL, NULL, NULL),
+(33, '2024-02-12 08:00:00', NULL, 5, NULL, NULL, NULL, NULL),
+(34, '2024-02-12 09:00:00', NULL, 5, NULL, NULL, NULL, NULL),
+(35, '2024-02-12 10:00:00', NULL, 5, NULL, NULL, NULL, NULL),
+(36, '2024-02-12 11:00:00', NULL, 5, NULL, NULL, NULL, NULL),
+(37, '2024-02-12 12:00:00', NULL, 5, NULL, NULL, NULL, NULL),
+(38, '2024-02-12 13:00:00', NULL, 5, NULL, NULL, NULL, NULL),
+(39, '2024-02-12 14:00:00', NULL, 5, NULL, NULL, NULL, NULL),
+(40, '2024-02-12 15:00:00', NULL, 5, NULL, NULL, NULL, NULL),
+(41, '2024-02-12 08:00:00', NULL, 6, NULL, NULL, NULL, NULL),
+(42, '2024-02-12 09:00:00', NULL, 6, NULL, NULL, NULL, NULL),
+(43, '2024-02-12 10:00:00', NULL, 6, NULL, NULL, NULL, NULL),
+(44, '2024-02-12 11:00:00', NULL, 6, NULL, NULL, NULL, NULL),
+(45, '2024-02-12 12:00:00', NULL, 6, NULL, NULL, NULL, NULL),
+(46, '2024-02-12 13:00:00', NULL, 6, NULL, NULL, NULL, NULL),
+(47, '2024-02-12 14:00:00', NULL, 6, NULL, NULL, NULL, NULL),
+(48, '2024-02-12 15:00:00', NULL, 6, NULL, NULL, NULL, NULL),
+(49, '2024-02-12 08:00:00', NULL, 7, NULL, NULL, NULL, NULL),
+(50, '2024-02-12 09:00:00', NULL, 7, NULL, NULL, NULL, NULL),
+(51, '2024-02-12 10:00:00', NULL, 7, NULL, NULL, NULL, NULL),
+(52, '2024-02-12 11:00:00', NULL, 7, NULL, NULL, NULL, NULL),
+(53, '2024-02-12 12:00:00', NULL, 7, NULL, NULL, NULL, NULL),
+(54, '2024-02-12 13:00:00', NULL, 7, NULL, NULL, NULL, NULL),
+(55, '2024-02-12 14:00:00', NULL, 7, NULL, NULL, NULL, NULL),
+(56, '2024-02-12 15:00:00', NULL, 7, NULL, NULL, NULL, NULL),
+(57, '2024-02-12 08:00:00', NULL, 8, NULL, NULL, NULL, NULL),
+(58, '2024-02-12 09:00:00', NULL, 8, NULL, NULL, NULL, NULL),
+(59, '2024-02-12 10:00:00', NULL, 8, NULL, NULL, NULL, NULL),
+(60, '2024-02-12 11:00:00', NULL, 8, NULL, NULL, NULL, NULL),
+(61, '2024-02-12 12:00:00', NULL, 8, NULL, NULL, NULL, NULL),
+(62, '2024-02-12 13:00:00', NULL, 8, NULL, NULL, NULL, NULL),
+(63, '2024-02-12 14:00:00', NULL, 8, NULL, NULL, NULL, NULL),
+(64, '2024-02-12 15:00:00', NULL, 8, NULL, NULL, NULL, NULL);
+
 --
 -- Indeksy dla zrzutów tabel
 --
 
 --
--- Indeksy dla tabeli `karty pacjenta`
+-- Indeksy dla tabeli `karty_pacjentow`
 --
-ALTER TABLE `karty pacjenta`
+ALTER TABLE `karty_pacjentow`
   ADD PRIMARY KEY (`IdKarty`);
 
 --
@@ -150,13 +237,19 @@ ALTER TABLE `pokoje`
   ADD PRIMARY KEY (`IdPokoju`);
 
 --
+-- Indeksy dla tabeli `wizyty`
+--
+ALTER TABLE `wizyty`
+  ADD PRIMARY KEY (`IdWizyty`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `karty pacjenta`
+-- AUTO_INCREMENT for table `karty_pacjentow`
 --
-ALTER TABLE `karty pacjenta`
+ALTER TABLE `karty_pacjentow`
   MODIFY `IdKarty` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -176,6 +269,12 @@ ALTER TABLE `pacjenci`
 --
 ALTER TABLE `pokoje`
   MODIFY `IdPokoju` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `wizyty`
+--
+ALTER TABLE `wizyty`
+  MODIFY `IdWizyty` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

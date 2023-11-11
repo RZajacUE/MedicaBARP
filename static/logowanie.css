@@ -42,7 +42,7 @@ label {
     text-shadow: 0 0 1px silver;
     }
     
-#username, #password {
+#pesel, #password {
     display: block;
     width: 360px; 
     margin: 0 auto;

@@ -9,14 +9,15 @@
     
 <div id="panel">
     <form action="{{url_for("login")}}" method="POST">
-        <label for="username">Imię Nazwisko:</label>
-        <input type="text" id="username" name="username">
+        <label for="pesel">Nr PESEL:</label>
+        <input type="text" id="pesel" name="pesel" maxlength="11" required>
         <label for="password">Hasło:</label>
-        <input type="password" id="password" name="password">
+        <input type="password" id="password" name="password" required>
         <div id="lower">
             <input type="checkbox" name="check"><label class="check" for="checkbox">Zapamiętaj mnie!</label>
-            <a href="rejestracja_konta.html">Rejestracja</a> 
+            <a href="{{url_for("register")}}">Rejestracja</a> 
             <input type="submit" value="Login">
+            <br><p style="color:red">{{myresult}}{{myresult1}}</p>
         </div>
     </form>
 </div>

@@ -11,18 +11,19 @@
 <div id="panel">
     <form action="{{url_for("register")}}" method="POST">
         <label for="name">Podaj Imię:</label>
-        <input type="text" id="name" name="name">
+        <input type="text" id="name" name="name" required>
         <label for="surname">Podaj Nazwisko:</label>
-        <input type="text" id="surname" name="surname">
+        <input type="text" id="surname" name="surname" required>
         <label for="pesel">Podaj Pesel:</label>
-        <input type="text" id="pesel" name="pesel">
+        <input type="text" id="pesel" name="pesel" maxlength="11" required>
         <label for="password">Podaj Hasło:</label>
-        <input type="password" id="password" name="password">
+        <input type="password" id="password" name="password" required>
         <label for="repeat_password">Powtórz Hasło:</label>
-        <input type="password" id="repeat_password" name="repeat_password">
+        <input type="password" id="repeat_password" name="repeat_password" required>
         <div id="lower">
-            <input type="checkbox"><label class="check" for="checkbox">Zapamiętaj mnie!</label><!--Zapamiętaj mnie nie jest potrzebne w przypadku rejestracji-->
+            <input type="checkbox" name="check"><label class="check" for="checkbox">Zapamiętaj mnie!</label><!--Zapamiętaj mnie nie jest potrzebne w przypadku rejestracji-->
             <input type="submit" value="Rejestracja">
+            <br><p style="color: red;">{{myresult}}{{myresult2}}{{myresult3}}{{myresult4}}</p>
         </div>
     </form>
 </div>
