@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../static/rejestracja_konta.css">
+    <link rel="stylesheet" type="text/css" href="C:\Users\ostro\OneDrive\Pulpit\rejestracja.css">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>Rejestracja Konta</title>
 </head>
@@ -13,15 +13,26 @@
         <label for="name">Podaj Imię:</label>
         <input type="text" id="name" name="name" required>
         <label for="surname">Podaj Nazwisko:</label>
-        <input type="text" id="surname" name="surname" required>
+        <input type="text" id="surname" name="surname" required> 
+        <label for="plec">Płeć:</label>
+        <select id="plec" name="plec">
+            <option value="plec"></option>
+            <option value="kobieta">Kobieta</option>
+            <option value="mezczyzna">Mężczyzna</option>
+            <option value="Nie chce podawać">Nie chcę podawać</option>
+        </select>      
         <label for="pesel">Podaj Pesel:</label>
         <input type="text" id="pesel" name="pesel" maxlength="11" required>
+        <label for="username">Podaj Date Urodzenia:</label>
+        <input type="date" id="appointmentDate" name="appointmentDate" required><br>
+        <label for="pesel">Podaj Telefon:</label>
+        <input type="text" id="telefon" name="telefon" maxlength="9" required>
         <label for="password">Podaj Hasło:</label>
         <input type="password" id="password" name="password" required>
         <label for="repeat_password">Powtórz Hasło:</label>
         <input type="password" id="repeat_password" name="repeat_password" required>
         <div id="lower">
-            <input type="checkbox" name="check"><label class="check" for="checkbox">Zapamiętaj mnie!</label><!--Zapamiętaj mnie nie jest potrzebne w przypadku rejestracji-->
+            <input type="checkbox" name="check"><label class="check" for="checkbox">Wyrażam zgodę na przetwarzanie danych osobowych RODO</label>
             <input type="submit" value="Rejestracja">
             <br><p style="color: red;">{{myresult}}{{myresult2}}{{myresult3}}{{myresult4}}</p>
         </div>
