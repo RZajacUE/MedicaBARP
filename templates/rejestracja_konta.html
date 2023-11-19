@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="C:\Users\ostro\OneDrive\Pulpit\rejestracja.css">
+    <link rel="stylesheet" type="text/css" href="../static/rejestracja_konta.css">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>Rejestracja Konta</title>
 </head>
@@ -14,8 +14,8 @@
         <input type="text" id="name" name="name" required>
         <label for="surname">Podaj Nazwisko:</label>
         <input type="text" id="surname" name="surname" required> 
-        <label for="plec">Płeć:</label>
-        <select id="plec" name="plec">
+        <label for="sex">Wybierz Płeć:</label>
+        <select id="sex" name="sex" required>
             <option value="plec"></option>
             <option value="kobieta">Kobieta</option>
             <option value="mezczyzna">Mężczyzna</option>
@@ -24,9 +24,9 @@
         <label for="pesel">Podaj Pesel:</label>
         <input type="text" id="pesel" name="pesel" maxlength="11" required>
         <label for="username">Podaj Date Urodzenia:</label>
-        <input type="date" id="appointmentDate" name="appointmentDate" required><br>
+        <input type="date" id="birthdate" name="birthdate" required><br>
         <label for="pesel">Podaj Telefon:</label>
-        <input type="text" id="telefon" name="telefon" maxlength="9" required>
+        <input type="text" id="telephone" name="telephone" maxlength="9">
         <label for="password">Podaj Hasło:</label>
         <input type="password" id="password" name="password" required>
         <label for="repeat_password">Powtórz Hasło:</label>
@@ -34,7 +34,7 @@
         <div id="lower">
             <input type="checkbox" name="check"><label class="check" for="checkbox">Wyrażam zgodę na przetwarzanie danych osobowych RODO</label>
             <input type="submit" value="Rejestracja">
-            <br><p style="color: red;">{{myresult}}{{myresult2}}{{myresult3}}{{myresult4}}</p>
+            <br><p style="color: red;">{{myresult}}{{myresult2}}{{myresult3}}{{myresult4}}{{myresult5}}</p>
         </div>
     </form>
 </div>

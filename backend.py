@@ -6,7 +6,7 @@ mydb = mysql.connector.connect(
     host = "localhost", 
     user = "root", 
     passwd = "", 
-    database = "przychodnia_test")
+    database = "przychodnia")
 
 query = "SELECT * from pacjenci"
 query2 = "SELECT * from lekarze"
@@ -22,30 +22,30 @@ for x in cursor:
         print(y, end=' ')
     print()
 
-cursor.execute(query2)
+# cursor.execute(query2)
 
-print('\nLekarze')
-for x in cursor:
-    for y in x:
-        print(y, end=' ')
-    print()
+# print('\nLekarze')
+# for x in cursor:
+#     for y in x:
+#         print(y, end=' ')
+#     print()
 
-cursor.execute(query3)
+# cursor.execute(query3)
 
-print('\nPokoje')
-for x in cursor:
-    for y in x:
-        print(y, end=' ')
-    print()
-print()
+# print('\nPokoje')
+# for x in cursor:
+#     for y in x:
+#         print(y, end=' ')
+#     print()
+# print()
 
-cursor.execute(query4)
+# cursor.execute(query4)
 
-print('\nKarty_pacjentów')
-for x in cursor:
-    for y in x:
-        print(y, end=' ')
-    print()
+# print('\nKarty_pacjentów')
+# for x in cursor:
+#     for y in x:
+#         print(y, end=' ')
+#     print()
 
 app = Flask(__name__)
 
@@ -54,26 +54,43 @@ def register():
     if request.method == "POST":
         name = request.form.get("name")
         surname = request.form.get("surname")
+        sex = request.form.get("sex")
         pesel = request.form.get("pesel")
+        birthdate =  request.form.get("birthdate")
+        telephone = request.form.get("telephone")
+        #email = request.form.get("email")
         password = request.form.get("password")
         r_password = request.form.get("repeat_password")
         RODO = request.form.get("check")
         pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
-        pattern2 = "/\d{11,11}/gm"
+        pattern2 = "\d{11}"
+        pattern3 = ".+\@.+\..+"
+        pattern4 = "\d{9}"
 
-        print(f'{name} {surname} {pesel} {password} {r_password} {RODO}')
+        print(f'{name} {surname} {sex} {pesel} {birthdate} {telephone} {password} {r_password} {RODO}') #mail
+        print(len(telephone))
+        if len(telephone) == 0: #mail
+            telephone = 0
 
-        insert = f"INSERT into pacjenci (IdPacjenta, Imie, Nazwisko, Pesel, Haslo) VALUES (null, '{name.capitalize()}', '{surname.capitalize()}', '{pesel}', '{password}')"
+        insert = f"INSERT into pacjenci (IdPacjenta, Imie, Nazwisko, Pesel, DataUrodzenia, NumerTel, Haslo) VALUES (null, '{name.capitalize()}', '{surname.capitalize()}', {pesel}, '{birthdate}', {telephone}, '{password}')"
         print(insert)
+        pesels = f"SELECT * from pacjenci where Pesel = {pesel}"
+        cursor.execute(pesels)
         
         password_strength = re.match(pattern, password)
-        pesel_digits = re.match(pattern2, pesel)
+        pesel_digits = re.match(pattern2, str(pesel))
+        #correct_email = re.match(pattern3, email)
+        phone_number_digits = re.match(pattern4, str(telephone))
 
         if pesel_digits == None:
             myresult4 = "Nieprawidłowy numer PESEL"
+            print("pesel digits")
             return render_template('rejestracja_konta.html', myresult4 = myresult4)
+        elif cursor.fetchone():
+            myresult5 = "Użytkownik o podanym numerze PESEL już istnieje!"
+            return render_template('rejestracja_konta.html', myresult5 = myresult5)
         elif password_strength == None:
-            myresult3 = "Hasło nie spełnia wymagań"
+            myresult3 = "Hasło nie spełnia wymagań. Poprawne hasło powinno mieć minimalnie 8 znaków w tym: 1 duża litera, 1 mała litera, 1 cyfra, 1 znak specjalny"
             return render_template('rejestracja_konta.html', myresult3 = myresult3)
         elif password != r_password:
             myresult = "Podane hasła różnią się!"
@@ -83,6 +100,11 @@ def register():
             return render_template('rejestracja_konta.html', myresult2 = myresult2)
         else:
             cursor.execute(insert)
+
+            if telephone == 0:
+                update = f"UPDATE pacjenci SET NumerTel = NULL WHERE IdPacjenta = (SELECT max(IdPacjenta) from pacjenci)"
+                cursor.execute(update)
+
             mydb.commit()
             return redirect(url_for('login'))
         
