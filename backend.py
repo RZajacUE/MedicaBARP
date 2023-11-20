@@ -1,6 +1,7 @@
 import mysql.connector
 from flask import Flask, render_template, request, redirect, url_for
 import re
+from colorama import Fore, Style, init as colorama_init
 
 mydb = mysql.connector.connect(
     host = "localhost", 
@@ -12,40 +13,52 @@ query = "SELECT * from pacjenci"
 query2 = "SELECT * from lekarze"
 query3 = "SELECT * from pokoje"
 query4 = "SELECT * from karty_pacjentow"
+query5 = "SELECT * from wizyty"
 
 cursor = mydb.cursor()
 cursor.execute(query)
 
-print('\nPacjenci')
+colorama_init()
+
+print(f'\n{Fore.YELLOW}Pacjenci')
 for x in cursor:
     for y in x:
         print(y, end=' ')
     print()
 
-# cursor.execute(query2)
+cursor.execute(query2)
 
-# print('\nLekarze')
-# for x in cursor:
-#     for y in x:
-#         print(y, end=' ')
-#     print()
+print('\nLekarze')
+for x in cursor:
+    for y in x:
+        print(y, end=' ')
+    print()
 
-# cursor.execute(query3)
+cursor.execute(query3)
 
-# print('\nPokoje')
-# for x in cursor:
-#     for y in x:
-#         print(y, end=' ')
-#     print()
-# print()
+print('\nPokoje')
+for x in cursor:
+    for y in x:
+        print(y, end=' ')
+    print()
+print()
 
-# cursor.execute(query4)
+cursor.execute(query4)
 
-# print('\nKarty_pacjentów')
-# for x in cursor:
-#     for y in x:
-#         print(y, end=' ')
-#     print()
+print('\nKarty_pacjentów')
+for x in cursor:
+    for y in x:
+        print(y, end=' ')
+    print()
+
+cursor.execute(query5)
+
+print('\nWizyty')
+for x in cursor:
+    for y in x:
+        print(y, end=' ')
+    print()
+print(f'{Style.RESET_ALL}')
 
 app = Flask(__name__)
 
@@ -58,45 +71,60 @@ def register():
         pesel = request.form.get("pesel")
         birthdate =  request.form.get("birthdate")
         telephone = request.form.get("telephone")
-        #email = request.form.get("email")
+        email = request.form.get("email")
         password = request.form.get("password")
         r_password = request.form.get("repeat_password")
         RODO = request.form.get("check")
         pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
         pattern2 = "\d{11}"
-        pattern3 = ".+\@.+\..+"
-        pattern4 = "\d{9}"
+        pattern3 = ".+\@.+\..+|^0$"
+        pattern4 = "\d{9}|^0$"
 
-        print(f'{name} {surname} {sex} {pesel} {birthdate} {telephone} {password} {r_password} {RODO}') #mail
-        print(len(telephone))
-        if len(telephone) == 0: #mail
+        print(f'\n{Fore.BLUE}{name} {surname} {sex} {pesel} {birthdate} {telephone} {email} {password} {r_password} {RODO}{Style.RESET_ALL}\n')
+        if len(telephone) == 0:
             telephone = 0
+        if len(email) == 0:
+            email = 0
 
-        insert = f"INSERT into pacjenci (IdPacjenta, Imie, Nazwisko, Pesel, DataUrodzenia, NumerTel, Haslo) VALUES (null, '{name.capitalize()}', '{surname.capitalize()}', {pesel}, '{birthdate}', {telephone}, '{password}')"
-        print(insert)
+        insert = f"INSERT into pacjenci (IdPacjenta, Imie, Nazwisko, Pesel, DataUrodzenia, NumerTel, Haslo, Email, Plec) VALUES (null, '{name.capitalize()}', '{surname.capitalize()}', {pesel}, '{birthdate}', {telephone}, '{password}', '{email}', '{sex}')"
+        print(f'{Fore.GREEN}{insert}{Style.RESET_ALL}')
         pesels = f"SELECT * from pacjenci where Pesel = {pesel}"
+        if str(pesel):
+            pesels = f"SELECT * from pacjenci where Pesel = '{pesel}'"
         cursor.execute(pesels)
         
         password_strength = re.match(pattern, password)
         pesel_digits = re.match(pattern2, str(pesel))
-        #correct_email = re.match(pattern3, email)
+        correct_email = re.match(pattern3, str(email))
         phone_number_digits = re.match(pattern4, str(telephone))
 
         if pesel_digits == None:
             myresult4 = "Nieprawidłowy numer PESEL"
-            print("pesel digits")
+            print(f'{Fore.RED}{myresult4}{Style.RESET_ALL}\n')
             return render_template('rejestracja_konta.html', myresult4 = myresult4)
         elif cursor.fetchone():
             myresult5 = "Użytkownik o podanym numerze PESEL już istnieje!"
+            print(f'{Fore.RED}{myresult5}{Style.RESET_ALL}\n')
             return render_template('rejestracja_konta.html', myresult5 = myresult5)
+        elif phone_number_digits == None:
+            myresult6 = "Podano niepoprawny format numeru telefonu"
+            print(f'{Fore.RED}{myresult6}{Style.RESET_ALL}\n')
+            return render_template('rejestracja_konta.html', myresult6 = myresult6)
+        elif correct_email == None:
+            myresult7 = "Podany adres E-mail jest nieprawidłowy"
+            print(f'{Fore.RED}{myresult7}{Style.RESET_ALL}\n')
+            return render_template('rejestracja_konta.html', myresult7 = myresult7)
         elif password_strength == None:
             myresult3 = "Hasło nie spełnia wymagań. Poprawne hasło powinno mieć minimalnie 8 znaków w tym: 1 duża litera, 1 mała litera, 1 cyfra, 1 znak specjalny"
+            print(f'{Fore.RED}{myresult3}{Style.RESET_ALL}\n')
             return render_template('rejestracja_konta.html', myresult3 = myresult3)
         elif password != r_password:
             myresult = "Podane hasła różnią się!"
+            print(f'{Fore.RED}{myresult}{Style.RESET_ALL}\n')
             return render_template('rejestracja_konta.html', myresult = myresult)
         elif RODO != 'on':
             myresult2 = "Akceptacja RODO jest wymagana!"
+            print(f'{Fore.RED}{myresult2}{Style.RESET_ALL}\n')
             return render_template('rejestracja_konta.html', myresult2 = myresult2)
         else:
             cursor.execute(insert)
@@ -104,6 +132,9 @@ def register():
             if telephone == 0:
                 update = f"UPDATE pacjenci SET NumerTel = NULL WHERE IdPacjenta = (SELECT max(IdPacjenta) from pacjenci)"
                 cursor.execute(update)
+            if email == 0:
+                update1 = f"UPDATE pacjenci SET Email = NULL WHERE IdPacjenta = (SELECT max(IdPacjenta) from pacjenci)"
+                cursor.execute(update1)
 
             mydb.commit()
             return redirect(url_for('login'))

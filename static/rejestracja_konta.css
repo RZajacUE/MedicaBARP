@@ -35,7 +35,7 @@ label {
     text-shadow: 0 0 1px silver;
     }
     
-#name, #surname, #password, #pesel, #repeat_password, #telephone, #birthdate, #sex {
+#name, #surname, #password, #pesel, #repeat_password, #telephone, #birthdate, #sex, #email {
     display: block;
     width: 360px; 
     margin: 0 auto;
