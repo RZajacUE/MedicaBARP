@@ -2,6 +2,7 @@ import mysql.connector
 from flask import Flask, render_template, request, redirect, url_for
 import re
 from colorama import Fore, Style, init as colorama_init
+from datetime import datetime
 
 mydb = mysql.connector.connect(
     host = "localhost", 
@@ -180,4 +181,31 @@ def main():
 
 @app.route("/date", methods = ["GET", "POST"])
 def date():
-    pass
+    query = "SELECT IdLekarza, Imie, Nazwisko, Specjalizacja, NumerPokoju from lekarze join pokoje on lekarze.IdPokoju = pokoje.IdPokoju"
+    cursor = mydb.cursor()
+    cursor.execute(query)
+
+    data = datetime.now()
+    dates = []
+
+    for i in range(8, 16):
+        data = datetime(data.year, data.month, data.day, i, 0, 0)
+        if data.hour > datetime.now().hour:
+            print(data)
+            dates.append(f"{data.hour}:00")
+
+    if request.method == "POST":
+        IDlekarza = request.form.get("IDlekarza")
+        godziny = request.form.get("godziny")
+
+        q = f"SELECT Imie, Nazwisko from lekarze where IdLekarza = {int(IDlekarza)}"
+        print(q)
+        cursor.nextset()
+        cursor.execute(q)
+        for i in cursor:
+            print(i)
+        komunikat = f"Umówiono wizytę na godzinę {godziny} z lekarzem o ID {IDlekarza}"
+        wizyta = "INSERT into wizyty values "
+        return render_template('umawianie_terminu.html', komunikat = komunikat)
+
+    return render_template('umawianie_terminu.html', wyniki = cursor.fetchall(), godziny = dates)

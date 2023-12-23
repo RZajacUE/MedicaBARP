@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Form</title>
+</head>
+<body>
+    <form action="{{url_for("date")}}" method="post">
+        <table border="1">
+            <tr>
+                <th></th>
+                <th>Imię nazwisko</th>
+                <th>Specjalizacja</th>
+                <th>Pokój</th>
+            </tr>
+            <tr>
+                {% for i in wyniki %}
+                
+                <td>
+                    <input type="radio" name="IDlekarza", value="{{i[0]}}">
+                </td>
+                <td>
+                    {{i[1]}} {{i[2]}}
+                </td>
+                <td>
+                    {{i[3]}}
+                </td>
+                <td>
+                    {{i[4]}}
+                </td>
+            </tr>
+                {% endfor %}
+        </table>
+
+        <select id="godziny" name="godziny">
+            {% for d in godziny %}
+                <option value="{{d}}">{{d}}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Umów wizytę">
+    </form>
+    <br>
+    {{komunikat}}
+</body>
+</html>
