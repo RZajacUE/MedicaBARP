@@ -1,5 +1,5 @@
 import mysql.connector
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import re
 from colorama import Fore, Style, init as colorama_init
 from datetime import datetime
@@ -62,6 +62,7 @@ for x in cursor:
 print(f'{Style.RESET_ALL}')
 
 app = Flask(__name__)
+app.secret_key = 'secret'
 
 @app.route("/register", methods = ["GET", "POST"])
 def register():
@@ -166,7 +167,15 @@ def login():
                                 print(p)
                                 myresult1 = "Hasło jest nieprawidłowe"
                                 return render_template('logowanie.html', myresult1 = myresult1)
-                    return redirect(url_for('main'))
+                            
+                            cursor.execute(f"SELECT * from pacjenci WHERE pesel = {pesel}")
+                            user = cursor.fetchall()
+                            #print(user)
+                            if user:
+                                session['user_id'] = user[0]
+                                #print(session['user_id'])
+                                return redirect(url_for('dashboard'))
+                    #return redirect(url_for('main'))
                 else:
                     print(j)
                     continue
@@ -175,8 +184,19 @@ def login():
         
     return render_template('logowanie.html')
 
+@app.route("/dashboard", methods = ["GET", "POST"])
+def dashboard():
+
+    if 'user_id' in session:
+        user_id = session['user_id']
+        cursor.execute("SELECT * FROM pacjenci where IdPacjenta = %s", (user_id[0],))
+        user = cursor.fetchall()
+        informacja = f'Witaj, {user[0][1]} {user[0][2]}'
+        return render_template('dashboard.html', user = informacja)
+
 @app.route("/", methods = ["GET", "POST"])
 def main():
+
     return render_template('strona_glowna.html')
 
 @app.route("/date", methods = ["GET", "POST"])

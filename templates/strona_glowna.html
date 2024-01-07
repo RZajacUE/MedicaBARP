@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../static/strona_glowna.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/css/bootstrap.min.css" integrity="sha384-GLhlTQ8iKt6Uj+JF22t8zR0UqSK10Ee7yH3d6ZegxzUhoMq7f/PPN0lPFv2Mz9q" crossorigin="anonymous">
     <link rel="stylesheet" href="path/to/bootstrap-icons.css"> <!-- Ścieżka do lokalnej kopii Bootstrap Icons -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
 
@@ -16,11 +17,11 @@
     </header>
 
     <nav>
-        <a href="#">Strona Główna</a>
+        <a href="{{url_for("main")}}">Strona Główna</a>
         <a href="#">Oferta</a>
         <a href="#">Lekarze</a>
         <a href="#">Kontakt</a>
-        <a href="#" class="login-button">Zaloguj się</a>
+        <a href="{{url_for("login")}}" class="login-button">Zaloguj się</a>
     </nav>
     <section>
     <div class="software-info-block">
