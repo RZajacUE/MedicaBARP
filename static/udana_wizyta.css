@@ -1,0 +1,189 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f8f9fa;
+    color: #495057;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: #fff;
+    color: #4169E1;
+    text-align: center;
+    padding: 1em 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+}
+
+#logo {
+    font-size: 2em;
+    margin: 0;
+    color: #3498db;
+}
+
+nav {
+    background-color: #3498db;
+    color: #fff;
+    padding: 1em 0;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    top: 60px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 1em;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+section {
+    padding: 4em 2em;
+    text-align: center;
+    margin-top: 120px;
+}
+
+.info-block {
+    background-color: #fff;
+    padding: 2em;
+    margin: 1em;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.info-block h2 {
+    margin-bottom: 1em;
+    color: #3498db;
+}
+
+.info-block p {
+    font-size: 1.2em;
+    color: #6c757d;
+}
+
+.software-info-block {
+    background-color: #3498db;
+    color: #fff;
+    padding: 2em;
+    margin: 1em;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.software-info-block h2 {
+    margin-bottom: 1em;
+}
+
+.software-info-block p {
+    font-size: 1.2em;
+}
+
+.software-info-icon {
+    font-size: 3em;
+    color: #3498db;
+}
+
+.medical-icons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2em;
+}
+
+.medical-icons i {
+    font-size: 2em;
+    color: #3498db;
+    margin: 0.5em;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2em 0;
+}
+
+.feature-icon {
+    font-size: 3em;
+    color: #3498db;
+    margin-right: 1em;
+}
+
+.testimonial {
+    background-color: #fff;
+    padding: 2em;
+    margin: 2em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.testimonial h2 {
+    margin-bottom: 1em;
+    color: #3498db;
+}
+
+.testimonial p {
+    font-size: 1.2em;
+    color: #6c757d;
+}
+
+.gallery {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 2em;
+}
+
+
+.cta {
+    background-color: #3498db;
+    color: #fff;
+    padding: 4em 2em;
+    text-align: center;
+}
+
+.cta h2 {
+    margin-bottom: 1em;
+    color: #fff;
+}
+
+.cta p {
+    font-size: 1.2em;
+    color: #f8f9fa;
+}
+
+footer {
+    background-color: #495057;
+    color: #fff;
+    text-align: center;
+    margin-left: 0;
+    padding: 1em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.login-button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    margin-left: auto;
+    text-decoration: none;
+}

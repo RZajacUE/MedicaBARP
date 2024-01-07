@@ -229,3 +229,35 @@ def date():
         return render_template('umawianie_terminu.html', komunikat = komunikat)
 
     return render_template('umawianie_terminu.html', wyniki = cursor.fetchall(), godziny = dates)
+
+@app.route("/offer", methods = ["GET", "POST"])
+def offer():
+
+    if 'user_id' in session:
+        user_id = session['user_id']
+        cursor.execute("SELECT * FROM pacjenci where IdPacjenta = %s", (user_id[0],))
+        user = cursor.fetchall()
+        informacja = f'Witaj, {user[0][1]} {user[0][2]}'
+        return render_template('oferta.html', user = informacja)
+    
+    return render_template('oferta.html')
+
+@app.route("/doctor", methods = ["GET", "POST"])
+def doctor():
+    
+    return render_template('lekarze.html')
+
+@app.route("/contact", methods = ["GET", "POST"])
+def contact():
+    
+    return render_template('kontakt.html')
+
+@app.route("/alldone", methods = ["GET", "POST"])
+def alldone():
+    
+    return render_template('udana_wizyta.html')
+
+@app.route("/logout")
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('main'))

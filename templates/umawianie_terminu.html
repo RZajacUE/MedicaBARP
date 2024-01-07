@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Simple Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medica BARP</title>
+    <link rel="stylesheet" href="../static/umawianie_terminu.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/css/bootstrap.min.css" integrity="sha384-GLhlTQ8iKt6Uj+JF22t8zR0UqSK10Ee7yH3d6ZegxzUhoMq7f/PPN0lPFv2Mz9q" crossorigin="anonymous">
+    <link rel="stylesheet" href="path/to/bootstrap-icons.css"> <!-- Ścieżka do lokalnej kopii Bootstrap Icons -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
     <form action="{{url_for("date")}}" method="post">

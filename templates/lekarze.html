@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medica BARP</title>
+    <link rel="stylesheet" href="static/lekarze.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/css/bootstrap.min.css" integrity="sha384-GLhlTQ8iKt6Uj+JF22t8zR0UqSK10Ee7yH3d6ZegxzUhoMq7f/PPN0lPFv2Mz9q" crossorigin="anonymous">
+    <link rel="stylesheet" href="path/to/bootstrap-icons.css"> <!-- Ścieżka do lokalnej kopii Bootstrap Icons -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+
+    <header>
+        <h1 id="logo">Medica BARP</h1>
+
+    </header>
+
+    <nav>
+        <a href="{{url_for("main")}}">Strona Główna</a>
+        <a href="{{url_for("offer")}}">Oferta</a>
+        <a href="{{url_for("contact")}}">Kontakt</a>
+        <a href="{{url_for("login")}}" class="login-button">Zaloguj się</a>
+    </nav>
+    <section>
+        <h2>Nasi lekarze</h2>
+        
+        <div class="lekarz">
+            <img src="C:\Users\ostro\OneDrive\Pulpit\Projekt Studia\Strona Lekarzy\lekarz1.jpg" alt="Zdjęcie lekarza 1">
+            <h3>Dr. Jan Kowalski</h3>
+            <p>Krótki opis lekarza Jan Kowalski.</p>
+        </div>
+
+        <div class="lekarz">
+            <img src="C:\Users\ostro\OneDrive\Pulpit\Projekt Studia\Strona Lekarzy\lekarz2.jpg" alt="Zdjęcie lekarza 2">
+            <h3>Dr. Anna Nowak</h3>
+            <p>Krótki opis lekarza Anna Nowak.</p>
+        </div>
+
+        <div class="lekarz">
+            <img src="C:\Users\ostro\OneDrive\Pulpit\Projekt Studia\Strona Lekarzy\lekarz3.jpg" alt="Zdjęcie lekarza 1">
+            <h3>Dr. Jan Kowalski</h3>
+            <p>"Doktor Anna Nowak to doświadczony kardiolog z pasją do zdrowego serca. Jej bogate doświadczenie w leczeniu chorób serca i naczyń krwionośnych sprawia, że jest wyjątkowym specjalistą w dziedzinie kardiologii. Jej troska o pacjentów, empatia i zaangażowanie w zapobieganie chorobom serca stanowią fundament jej praktyki lekarskiej. Zawsze otwarta na najnowsze technologie i metody leczenia, Dr. Nowak skupia się na holistycznym podejściu do opieki zdrowotnej, starając się nie tylko leczyć dolegliwości, ale także wspierać pacjentów w prowadzeniu zdrowego stylu życia.".</p>
+        </div>
+
+        <div class="lekarz">
+            <img src="C:\Users\ostro\OneDrive\Pulpit\Projekt Studia\Strona Lekarzy\lekarz4.jpg" alt="Zdjęcie lekarza 1">
+            <h3>Dr. Jan Kowalski</h3>
+            <p>Krótki opis lekarza Jan Kowalski.</p>
+        </div>
+
+        <div class="lekarz">
+            <img src="C:\Users\ostro\OneDrive\Pulpit\Projekt Studia\Strona Lekarzy\lekarz5.jpg" alt="Zdjęcie lekarza 1">
+            <h3>Dr. Jan Kowalski</h3>
+            <p>Krótki opis lekarza Jan Kowalski.</p>
+        </div>
+
+        <div class="lekarz">
+            <img src="C:\Users\ostro\OneDrive\Pulpit\Projekt Studia\Strona Lekarzy\lekarz6.jpg" alt="Zdjęcie lekarza 1">
+            <h3>Dr. Jan Kowalski</h3>
+            <p>Krótki opis lekarza Jan Kowalski.</p>
+        </div>
+    </section>
+
+    <div class="cta">
+        <h2>Zacznij pozyskiwać pacjentów już dziś!</h2>
+        <p>Prowadzisz własny gabinet lub placówkę i szukasz nowych pacjentów?</p>
+        <p>Dotrzyj do pacjentów, którzy szukają specjalistów w Twojej okolicy. Pozwól im zapisać się na wizytę o każdej porze dnia i nocy. Koniec z czekaniem na otwarcie recepcji. Zbuduj reputację w Internecie pozyskując wiarygodne opinie.</p>
+    </div>
+
+    <footer>
+        &copy; 2023 Medica BARP. Wszelkie prawa zastrzeżone.
+    </footer>
+
+</body>
+</html>
