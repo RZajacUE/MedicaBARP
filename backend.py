@@ -149,7 +149,7 @@ def login():
         pesel = request.form.get("pesel")
         password = request.form.get("password")
         remember_me = request.form.get("check")
-        print(f'{pesel} {password} {remember_me}')
+        print(f'{Fore.BLUE}{pesel} {password} {remember_me}{Style.RESET_ALL}')
 
         query5 = "SELECT pesel from pacjenci"
         query6 = f"SELECT Haslo from pacjenci where pesel = '{pesel}'"
@@ -164,22 +164,19 @@ def login():
                     for passes in result1:
                         for p in passes:
                             if p != password:
-                                print(p)
                                 myresult1 = "Hasło jest nieprawidłowe"
+                                print(f'{Fore.RED}{myresult1}{Style.RESET_ALL}')
                                 return render_template('logowanie.html', myresult1 = myresult1)
                             
                             cursor.execute(f"SELECT * from pacjenci WHERE pesel = {pesel}")
                             user = cursor.fetchall()
-                            #print(user)
                             if user:
                                 session['user_id'] = user[0]
-                                #print(session['user_id'])
                                 return redirect(url_for('dashboard'))
-                    #return redirect(url_for('main'))
                 else:
-                    print(j)
                     continue
         myresult = "Użytkownik nie istnieje!"
+        print(f'{Fore.RED}{myresult}{Style.RESET_ALL}')
         return render_template('logowanie.html', myresult = myresult)
         
     return render_template('logowanie.html')
@@ -191,8 +188,11 @@ def dashboard():
         user_id = session['user_id']
         cursor.execute("SELECT * FROM pacjenci where IdPacjenta = %s", (user_id[0],))
         user = cursor.fetchall()
+        print(f'{Fore.BLUE}{user}{Style.RESET_ALL}')
         informacja = f'Witaj, {user[0][1]} {user[0][2]}'
         return render_template('dashboard.html', user = informacja)
+    else:
+        return redirect(url_for('main'))
 
 @app.route("/", methods = ["GET", "POST"])
 def main():
@@ -237,20 +237,37 @@ def offer():
         user_id = session['user_id']
         cursor.execute("SELECT * FROM pacjenci where IdPacjenta = %s", (user_id[0],))
         user = cursor.fetchall()
+        print(f'{Fore.BLUE}{user}{Style.RESET_ALL}')
         informacja = f'Witaj, {user[0][1]} {user[0][2]}'
         return render_template('oferta.html', user = informacja)
-    
-    return render_template('oferta.html')
+    else:
+        return render_template('oferta.html')
 
 @app.route("/doctor", methods = ["GET", "POST"])
 def doctor():
     
-    return render_template('lekarze.html')
+    if 'user_id' in session:
+        user_id = session['user_id']
+        cursor.execute("SELECT * FROM pacjenci where IdPacjenta = %s", (user_id[0],))
+        user = cursor.fetchall()
+        print(f'{Fore.BLUE}{user}{Style.RESET_ALL}')
+        informacja = f'Witaj, {user[0][1]} {user[0][2]}'
+        return render_template('lekarze.html', user = informacja)
+    else:
+        return render_template('lekarze.html')
 
 @app.route("/contact", methods = ["GET", "POST"])
 def contact():
     
-    return render_template('kontakt.html')
+    if 'user_id' in session:
+        user_id = session['user_id']
+        cursor.execute("SELECT * FROM pacjenci where IdPacjenta = %s", (user_id[0],))
+        user = cursor.fetchall()
+        print(f'{Fore.BLUE}{user}{Style.RESET_ALL}')
+        informacja = f'Witaj, {user[0][1]} {user[0][2]}'
+        return render_template('kontakt.html', user = informacja)
+    else:
+        return render_template('kontakt.html')
 
 @app.route("/alldone", methods = ["GET", "POST"])
 def alldone():

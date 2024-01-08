@@ -17,16 +17,17 @@
     </header>
 
     <nav>
-        <a href="{{url_for("main")}}">Strona Główna</a>
+        <a href="{{url_for("dashboard")}}">Strona Główna</a>
         <a href="{{url_for("doctor")}}">Lekarze</a>
         <a href="{{url_for("contact")}}">Kontakt</a>
         {% if user %}
+            <a href="{{url_for("date")}}">Wizyta</a>
             <p style="color: red;">{{ user }}!</p>
-            <button onclick=""></button>
+            <a href="{{url_for("logout")}}">Wyloguj się</a>
         {% else %}
             <a href="{{url_for("login")}}" class="login-button">Zaloguj się</a>
         {% endif %}
-        </nav>
+    </nav>
     <section>
     <div class="software-info-block">
         <i class="bi bi-stethoscope software-info-icon"></i>
