@@ -13,95 +13,39 @@
 
     <header>
         <h1 id="logo">Medica BARP</h1>
-
     </header>
 
     <nav>
         <a href="{{url_for("dashboard")}}">Strona Główna</a>
+        <a href="{{url_for("offer")}}">Oferta</a>
         <a href="{{url_for("doctor")}}">Lekarze</a>
+        <a href="{{url_for("date")}}">Wizyta</a>
         <a href="{{url_for("contact")}}">Kontakt</a>
-        {% if user %}
-            <a href="{{url_for("date")}}">Wizyta</a>
-            <p style="color: red;">{{ user }}!</p>
-            <a href="{{url_for("logout")}}">Wyloguj się</a>
-        {% else %}
-            <a href="{{url_for("login")}}" class="login-button">Zaloguj się</a>
-        {% endif %}
+        <a href="{{url_for("login")}}" class="login-button">Zaloguj się</a>
     </nav>
+       
     <section>
-    <div class="software-info-block">
-        <i class="bi bi-stethoscope software-info-icon"></i>
-        <h2>Kompletne oprogramowanie do zarządzania gabinetem</h2>
-        <p>Zgodne ze wszystkimi protokołami bezpieczeństwa, aby zapewnić bezpieczeństwo wszystkich danych pacjentów.</p>
+
+    <div class="offer-section">
+        <h2>Oferta</h2>
+        <p class="offer-info"><strong>Zapraszamy do skorzystania z naszej bogatej oferty medycznej. Specjalizujemy się w różnych dziedzinach, zapewniając kompleksową opiekę zdrowotną dla naszych pacjentów.</strong></p> 
+        <p>Nasi specjaliści oferują pełną listę usług i zabiegów medycznych. Sprawdź, jakie są najczęściej oferowane i najpopularniejsze wśród pacjentów:</p>
+        <ul class="offer-info">
+            <li>Umawianie wizyt online</li>
+            <li>Konsultacje lekarskie online</li>
+            <li>Badania diagnostyczne</li>
+            <li>Chirurgia ogólna i specjalistyczna</li>
+            <li>Ortopedia</li>
+            <li>Rehabilitacja</li>
+            <li>Opieka stomatologiczna</li>
+            <li>Ginekologia</li>
+            <li>Kardiologia</li>
+            <li>USG</li>
+        </ul>
+        <p class="offer-info">Zadzwoń lub umów się online, aby skorzystać z naszych usług medycznych.</p>
     </div>
+</section>
 
-    <div class="medical-icons">
-        <i class="bi bi-heart"></i>
-        <i class="bi bi-diagram-2"></i>
-        <i class="bi bi-thermometer"></i>
-        <i class="bi bi-file-medical"></i>
-    </div>
-
-        <div class="info-block">
-            <h2>Umów wizytę online</h2>
-            <p>Teraz możesz łatwo umówić wizytę online poprzez naszą stronę internetową.</p>
-        </div>
-
-        <div class="info-block">
-            <h2>Usługa bezpłatna</h2>
-            <p>Oferujemy usługi medyczne bez dodatkowych opłat. Zdrowie naszych pacjentów jest najważniejsze.</p>
-        </div>
-
-        <div class="info-block">
-            <h2>Znajdź swojego specjalistę</h2>
-            <p>Posiadamy zespół wykwalifikowanych lekarzy specjalistów gotowych do udzielenia pomocy.</p>
-        </div>
-
-        <div class="info-block">
-            <h2>Wizyta w siedzibie placówki</h2>
-            <p>Przyjdź na umówioną wizytę do naszej siedziby. Czekamy na Ciebie!</p>
-        </div>
-
-        <div class="feature">
-            <div class="feature-icon">&#x1F48E;</div>
-            <div>
-                <h3>Ekspercka Opieka</h3>
-                <p>Nasi doświadczeni lekarze zapewniają wysoką jakość opieki medycznej.</p>
-            </div>
-        </div>
-
-        <div class="feature">
-            <div class="feature-icon">&#x1F3E5;</div>
-            <div>
-                <h3>Nowoczesne Wyposażenie</h3>
-                <p>Posiadamy nowoczesne sprzęty medyczne, aby zapewnić kompleksową diagnostykę.</p>
-            </div>
-        </div>
-
-            <div class="feature">
-                <div class="feature-icon">&#x1F44D;</div>
-                <div>
-                    <h3>Łatwość Obsługi</h3>
-                    <p>Z naszym prostym i intuicyjnym systemem łatwo umówisz wizytę. Potwierdzone lajkiem!</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="testimonial">
-            <h2>Opinie Klientów</h2>
-            <p>"Portal Medica BARP to rewelacyjne miejsce! Z łatwością umówiłem się na wizytę online. Polecam wszystkim! 5/5 *" - Jan Kowalski</p>
-            <p>"Profesjonalna obsługa, szybka rejestracja, bezpłatne usługi - niezwykłe miejsce!" - Anna Nowak</p>
-            <p>"Jestem bardzo zadowolony z usług Medica BARP. Zespół lekarzy naprawdę zna się na rzeczy!" - Piotr Wiśniewski</p>
-        </div>
-        </div>
-
-    </section>
-
-    <div class="cta">
-        <h2>Zacznij pozyskiwać pacjentów już dziś!</h2>
-        <p>Prowadzisz własny gabinet lub placówkę i szukasz nowych pacjentów?</p>
-        <p>Dotrzyj do pacjentów, którzy szukają specjalistów w Twojej okolicy. Pozwól im zapisać się na wizytę o każdej porze dnia i nocy. Koniec z czekaniem na otwarcie recepcji. Zbuduj reputację w Internecie pozyskując wiarygodne opinie.</p>
-    </div>
 
     <footer>
         &copy; 2023 Medica BARP. Wszelkie prawa zastrzeżone.

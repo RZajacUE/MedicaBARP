@@ -21,12 +21,7 @@
         <a href="{{url_for("doctor")}}">Lekarze</a>
         <a href="{{url_for("date")}}">Wizyta</a>
         <a href="{{url_for("contact")}}">Kontakt</a>
-        {% if user %}
-            <p style="color: red;">{{ user }}!</p>
-            <a href="{{url_for("logout")}}">Wyloguj się</a>
-        {% else %}
-            <a href="{{url_for("login")}}" class="login-button">Zaloguj się</a>
-        {% endif %}
+        <a href="{{url_for("login")}}" class="login-button">Zaloguj się</a>
     </nav>
 
     <section>
