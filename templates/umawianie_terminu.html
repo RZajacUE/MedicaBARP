@@ -17,6 +17,7 @@
                 <th>Imię nazwisko</th>
                 <th>Specjalizacja</th>
                 <th>Pokój</th>
+                <th>Status</th>
             </tr>
             <tr>
                 {% for i in wyniki %}
@@ -37,15 +38,16 @@
                 {% endfor %}
         </table>
 
+        <input type="date" name="date">
+
         <select id="godziny" name="godziny">
             {% for d in godziny %}
                 <option value="{{d}}">{{d}}</option>
             {% endfor %}
         </select>
-
+        <br>
+        <p style="color: red;">{{myresult}}{{myresult2}}{{myresult3}}{{myresult4}}</p>
         <input type="submit" value="Umów wizytę">
     </form>
-    <br>
-    {{komunikat}}
 </body>
 </html>

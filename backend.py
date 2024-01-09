@@ -13,7 +13,6 @@ mydb = mysql.connector.connect(
 query = "SELECT * from pacjenci"
 query2 = "SELECT * from lekarze"
 query3 = "SELECT * from pokoje"
-query4 = "SELECT * from karty_pacjentow"
 query5 = "SELECT * from wizyty"
 
 cursor = mydb.cursor()
@@ -43,14 +42,6 @@ for x in cursor:
         print(y, end=' ')
     print()
 print()
-
-cursor.execute(query4)
-
-print('\nKarty_pacjentów')
-for x in cursor:
-    for y in x:
-        print(y, end=' ')
-    print()
 
 cursor.execute(query5)
 
@@ -201,34 +192,75 @@ def main():
 
 @app.route("/date", methods = ["GET", "POST"])
 def date():
-    query = "SELECT IdLekarza, Imie, Nazwisko, Specjalizacja, NumerPokoju from lekarze join pokoje on lekarze.IdPokoju = pokoje.IdPokoju"
+
     cursor = mydb.cursor()
+    if 'user_id' in session:
+        user_id = session['user_id']
+        cursor.execute("SELECT * FROM pacjenci where IdPacjenta = %s", (user_id[0],))
+        user = cursor.fetchall()
+        print(f'{Fore.BLUE}{user}{Style.RESET_ALL}')
+    
+    query = "SELECT IdLekarza, Imie, Nazwisko, Specjalizacja, NumerPokoju from lekarze join pokoje on lekarze.IdPokoju = pokoje.IdPokoju"
     cursor.execute(query)
 
     data = datetime.now()
-    dates = []
+    hours = []
+    print(f'{Fore.BLUE}{data}{Style.RESET_ALL}')
 
     for i in range(8, 16):
-        data = datetime(data.year, data.month, data.day, i, 0, 0)
-        if data.hour > datetime.now().hour:
-            print(data)
-            dates.append(f"{data.hour}:00")
+        hours.append(f"{i}:00")
 
     if request.method == "POST":
         IDlekarza = request.form.get("IDlekarza")
+        dzien = request.form.get("date")
         godziny = request.form.get("godziny")
 
-        q = f"SELECT Imie, Nazwisko from lekarze where IdLekarza = {int(IDlekarza)}"
-        print(q)
-        cursor.nextset()
-        cursor.execute(q)
-        for i in cursor:
-            print(i)
-        komunikat = f"Umówiono wizytę na godzinę {godziny} z lekarzem o ID {IDlekarza}"
-        wizyta = "INSERT into wizyty values "
-        return render_template('umawianie_terminu.html', komunikat = komunikat)
+        print(f'{Fore.BLUE}{IDlekarza} {dzien} {godziny}{Style.RESET_ALL}')
 
-    return render_template('umawianie_terminu.html', wyniki = cursor.fetchall(), godziny = dates)
+        if IDlekarza == None:
+            myresult = "Nie wybrano lekarza!"
+            print(f'{Fore.RED}{myresult}{Style.RESET_ALL}')
+            return render_template('umawianie_terminu.html', myresult = myresult, wyniki = cursor.fetchall(), godziny = hours)
+        elif bool(dzien) == False:
+            myresult2 = "Nie wybrano dnia wizyty!"
+            print(f'{Fore.RED}{myresult2}{Style.RESET_ALL}')
+            return render_template('umawianie_terminu.html', myresult2 = myresult2, wyniki = cursor.fetchall(), godziny = hours)
+        
+        hour_divide = godziny.split(':')
+        date_to_check = datetime(int(dzien[0:4]), int(dzien[5:7]), int(dzien[8:10]), int(hour_divide[0]), int(hour_divide[1]), 00)
+        print(f'{Fore.BLUE}{date_to_check}{Style.RESET_ALL}')
+        
+        if date_to_check < data:
+            myresult3 = "Wybrana data jest starsza od aktualnej!"
+            print(f'{Fore.RED}{myresult3}{Style.RESET_ALL}')
+            return render_template('umawianie_terminu.html', myresult3 = myresult3, wyniki = cursor.fetchall(), godziny = hours)
+
+        q2 = f"SELECT DataWizyty from wizyty where IdLekarza = {IDlekarza}"
+        cursor.nextset()
+        cursor.execute(q2)
+        wizyty = cursor.fetchall()
+        for i in wizyty:
+            for j in i:
+                if j == date_to_check:
+                    myresult4 = "Wybrany lekarz w tym terminie jest zajęty. Proszę o wybór innego lekarza lub daty."
+                    print(f'{Fore.RED}{myresult4}{Style.RESET_ALL}')
+                    cursor.execute(query)
+                    return render_template('umawianie_terminu.html', myresult4 = myresult4, wyniki = cursor.fetchall(), godziny = hours)
+        
+        q = f"SELECT Imie, Nazwisko from lekarze where IdLekarza = {int(IDlekarza)}"
+        print(f'{Fore.GREEN}{q}')
+        cursor.execute(q)
+        cursor.fetchall()
+        for i in cursor:
+            print(f'{i}{Style.RESET_ALL}')
+
+        wizyta = f"INSERT into wizyty values (null, '{date_to_check}', {user[0][0]}, {IDlekarza})"
+        print(f'{Fore.GREEN}{wizyta}{Style.RESET_ALL}')
+        cursor.execute(wizyta)
+        mydb.commit()
+        return redirect(url_for('alldone'))
+
+    return render_template('umawianie_terminu.html', wyniki = cursor.fetchall(), godziny = hours)
 
 @app.route("/offer", methods = ["GET", "POST"])
 def offer():
