@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sty 11, 2024 at 11:09 AM
--- Wersja serwera: 10.4.32-MariaDB
--- Wersja PHP: 8.2.12
+-- Czas generowania: 11 Sty 2024, 19:20
+-- Wersja serwera: 10.4.20-MariaDB
+-- Wersja PHP: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `przychodnia`
+-- Baza danych: `przychodnia`
 --
 
 -- --------------------------------------------------------
@@ -29,15 +29,15 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `lekarze` (
   `IdLekarza` int(11) NOT NULL,
-  `Imie` varchar(255) DEFAULT NULL,
-  `Nazwisko` varchar(255) DEFAULT NULL,
-  `Specjalizacja` varchar(255) DEFAULT NULL,
-  `NrLicencjiLekarskiej` varchar(20) DEFAULT NULL,
+  `Imie` varchar(255) COLLATE utf8mb4_polish_ci DEFAULT NULL,
+  `Nazwisko` varchar(255) COLLATE utf8mb4_polish_ci DEFAULT NULL,
+  `Specjalizacja` varchar(255) COLLATE utf8mb4_polish_ci DEFAULT NULL,
+  `NrLicencjiLekarskiej` varchar(20) COLLATE utf8mb4_polish_ci DEFAULT NULL,
   `IdPokoju` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
--- Dumping data for table `lekarze`
+-- Zrzut danych tabeli `lekarze`
 --
 
 INSERT INTO `lekarze` (`IdLekarza`, `Imie`, `Nazwisko`, `Specjalizacja`, `NrLicencjiLekarskiej`, `IdPokoju`) VALUES
@@ -66,10 +66,10 @@ CREATE TABLE `pacjenci` (
   `Haslo` varchar(255) NOT NULL,
   `Email` varchar(255) DEFAULT NULL,
   `Plec` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `pacjenci`
+-- Zrzut danych tabeli `pacjenci`
 --
 
 INSERT INTO `pacjenci` (`IdPacjenta`, `Imie`, `Nazwisko`, `Pesel`, `DataUrodzenia`, `NumerTel`, `Haslo`, `Email`, `Plec`) VALUES
@@ -96,7 +96,7 @@ CREATE TABLE `pokoje` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
--- Dumping data for table `pokoje`
+-- Zrzut danych tabeli `pokoje`
 --
 
 INSERT INTO `pokoje` (`IdPokoju`, `NumerPokoju`) VALUES
@@ -123,19 +123,20 @@ CREATE TABLE `wizyty` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
--- Dumping data for table `wizyty`
+-- Zrzut danych tabeli `wizyty`
 --
 
 INSERT INTO `wizyty` (`IdWizyty`, `DataWizyty`, `IdPacjenta`, `IdLekarza`) VALUES
-(1, '2024-02-12 08:00:00', NULL, 1),
-(2, '2024-02-12 09:00:00', NULL, 1),
-(3, '2024-02-12 10:00:00', NULL, 1),
-(4, '2024-02-12 11:00:00', NULL, 1),
-(5, '2024-02-12 12:00:00', NULL, 1),
-(6, '2024-02-12 13:00:00', NULL, 1),
-(7, '2024-02-12 14:00:00', NULL, 1),
-(8, '2024-02-12 15:00:00', NULL, 1),
-(9, '2024-02-12 08:00:00', NULL, 2);
+(1, '2024-01-20 14:00:00', 5, 6),
+(2, '2024-01-30 09:00:00', 5, 8),
+(3, '2024-01-12 10:00:00', 2, 1),
+(4, '2024-02-11 13:00:00', 1, 4),
+(5, '2024-01-31 08:00:00', 1, 5),
+(6, '2024-01-14 15:00:00', 7, 7),
+(7, '2024-02-02 10:00:00', 10, 1),
+(8, '2024-01-12 12:00:00', 6, 3),
+(9, '2024-01-12 11:00:00', 9, 3),
+(10, '2024-01-12 09:00:00', 3, 1);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -167,32 +168,32 @@ ALTER TABLE `wizyty`
   ADD PRIMARY KEY (`IdWizyty`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT dla zrzuconych tabel
 --
 
 --
--- AUTO_INCREMENT for table `lekarze`
+-- AUTO_INCREMENT dla tabeli `lekarze`
 --
 ALTER TABLE `lekarze`
   MODIFY `IdLekarza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `pacjenci`
+-- AUTO_INCREMENT dla tabeli `pacjenci`
 --
 ALTER TABLE `pacjenci`
   MODIFY `IdPacjenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `pokoje`
+-- AUTO_INCREMENT dla tabeli `pokoje`
 --
 ALTER TABLE `pokoje`
   MODIFY `IdPokoju` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `wizyty`
+-- AUTO_INCREMENT dla tabeli `wizyty`
 --
 ALTER TABLE `wizyty`
-  MODIFY `IdWizyty` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
+  MODIFY `IdWizyty` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
