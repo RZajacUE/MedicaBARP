@@ -6,7 +6,24 @@
     <title>Rejestracja Konta</title>
 </head>
 <body>
-    
+
+    <header>
+        <h1 id="logo">Medica BARP</h1>
+
+    </header>
+    <nav>
+        <a href="{{url_for("dashboard")}}">Strona Główna</a>
+        <a href="{{url_for("offer")}}">Oferta</a>
+        <a href="{{url_for("doctor")}}">Lekarze</a>
+        <a href="{{url_for("contact")}}">Kontakt</a>
+        {% if user %}
+            <a href="{{url_for("date")}}">Wizyta</a>
+            <p style="color: red;">{{ user }}!</p>
+            <a href="{{url_for("logout")}}">Wyloguj się</a>
+        {% else %}
+            <a href="{{url_for("login")}}" class="login-button">Zaloguj się</a>
+        {% endif %}
+    </nav>
 
 <div id="panel">
     <form action="{{url_for("register")}}" method="POST">
@@ -39,6 +56,10 @@
         </div>
     </form>
 </div>
+
+<footer>
+    &copy; 2023 Medica BARP. Wszelkie prawa zastrzeżone.
+</footer>
 
 </body>
 </html>
