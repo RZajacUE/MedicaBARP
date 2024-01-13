@@ -1,14 +1,51 @@
-/* Stylizacja tła strony */
+
 body {
-    background-image: url('Images/TŁO.jpg'); /* Zastąp 'twoje-zdjecie.jpg' właściwą ścieżką do obrazu */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center center;
-    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f8f9fa;
+    color: #495057;
+    overflow-x: hidden;
 }
 
-/* Stylizacja nagłówka */
+header {
+    background-color: #fff;
+    color: #4169E1;
+    text-align: center;
+    padding: 1em 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+}
+
+#logo {
+    font-size: 2em;
+    margin: 0;
+    color: #3498db;
+}
+
+nav {
+    background-color: #3498db;
+    color: #fff;
+    padding: 1em 0;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    top: 60px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 1em;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+
 h1 {
     color: rgb(4, 29, 53); 
     font-size: 80px;
@@ -27,6 +64,8 @@ h1 {
     box-shadow: 0 0 2px silver;
     top: 100;
     margin: auto;
+    margin-top: 250px;
+    margin-bottom: 200px;
     
     }
     form {
@@ -75,7 +114,7 @@ label {
         text-shadow: 0 0 1px black;
         background: #031b24;
         position: relative;
-        left: 130px;
+        left: 200px;
         
         }
         
@@ -91,4 +130,15 @@ a {
     font-size: 14px;
     padding: 3px;
     color: rgb(50, 47, 47);
+}
+footer {
+    background-color: #495057;
+    color: #fff;
+    text-align: center;
+    margin-left: 0;
+    padding: 1em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
 }
