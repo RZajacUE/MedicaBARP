@@ -6,7 +6,20 @@
     <title>Formularz logowania i rejestracji wizyty</title>
 </head>
 <body>
-    
+
+    <header>
+        <h1 id="logo">Medica BARP</h1>
+
+    </header>
+
+    <nav>
+        <a href="{{url_for("dashboard")}}">Strona Główna</a>
+        <a href="{{url_for("offer")}}">Oferta</a>
+        <a href="{{url_for("doctor")}}">Lekarze</a>
+        <a href="{{url_for("contact")}}">Kontakt</a>
+        <a href="{{url_for("login")}}" class="login-button">Zaloguj się</a>
+    </nav>
+
 <div id="panel">
     <form action="{{url_for("login")}}" method="POST">
         <label for="pesel">Nr PESEL:</label>
@@ -20,5 +33,8 @@
         </div>
     </form>
 </div>
+<footer>
+    &copy; 2023 Medica BARP. Wszelkie prawa zastrzeżone.
+</footer>
 </body>
 </html>
